@@ -1,3 +1,16 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.16.1
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # Chapter 1: TODO Chapter Title
 
 TODO: Add chapter content here.
@@ -9,25 +22,59 @@ TODO: Explain key concepts.
 ## Example Code
 
 ```{code-cell} python
-# TODO: Add example demonstrating Hypothesis usage
 from hypothesis import given, strategies as st
 
-# Example function to test
-def example_function(x):
-    """TODO: Add function description."""
-    return x * 2
+# Functions to test
+def add(x, y):
+    """Add two numbers."""
+    return x + y
 
-# TODO: Add property-based test
-@given(st.integers())
-def test_example_property(x):
-    """TODO: Describe what property this tests."""
-    result = example_function(x)
-    # TODO: Add meaningful assertion
-    assert isinstance(result, int)
+def multiply(x, y):
+    """Multiply two numbers."""
+    return x * y
 
-# Run the test
-test_example_property()
-print("TODO: Test passed - replace with meaningful message")
+def broken_divide(x, y):
+    """Intentionally broken division function."""
+    return x + y  # This is wrong - should be x / y
+```
+
+```{code-cell} python
+# Normal pytest-style test
+def test_add_basic():
+    """Test basic addition functionality."""
+    assert add(2, 3) == 5
+    assert add(-1, 1) == 0
+    assert add(0, 0) == 0
+```
+
+```{code-cell} python
+:tags: [hide-input, hide-output]
+
+test_add_basic()
+```
+
+```{code-cell} python
+# Hypothesis property-based test
+@given(st.integers(), st.integers())
+def test_add_commutative(x, y):
+    """Test that addition is commutative."""
+    assert add(x, y) == add(y, x)
+```
+
+```{code-cell} python
+:tags: [hide-input, hide-output]
+
+test_add_commutative()
+```
+
+```{code-cell} python
+# This test will fail intentionally (commented out for successful build)
+# def test_broken_divide():
+#     """This test demonstrates a failing test."""
+#     assert broken_divide(10, 2) == 5  # Will fail because broken_divide returns 12
+
+# Uncomment the lines below to test that failing tests stop the build:
+# test_broken_divide()
 ```
 
 ## Key Concepts
