@@ -176,3 +176,7 @@ pyrightconfig.json
 ### direnv ###
 .direnv
 .envrc
+
+### jupyter-book ###
+
+_build/
