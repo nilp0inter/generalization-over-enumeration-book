@@ -19,19 +19,36 @@
           ps.pandas
         ]);
       in {
-        devShells.default = pkgs.mkShell {
-          buildInputs = [
-            pythonEnv
-            pkgs.git
-            pkgs.gnumake
-            pkgs.texlive.combined.scheme-full
-          ];
+        devShells = {
+          default = pkgs.mkShell {
+            buildInputs = [
+              pythonEnv
+              pkgs.git
+              pkgs.gnumake
+            ];
+            
+            shellHook = ''
+              echo "Jupyter Book development environment ready (HTML only)!"
+              echo "Run 'jupyter-book build .' to build the book"
+              echo "Run 'jupyter-lab' for interactive editing"
+            '';
+          };
           
-          shellHook = ''
-            echo "Jupyter Book development environment ready!"
-            echo "Run 'jupyter-book build .' to build the book"
-            echo "Run 'jupyter-lab' for interactive editing"
-          '';
+          pdf = pkgs.mkShell {
+            buildInputs = [
+              pythonEnv
+              pkgs.git
+              pkgs.gnumake
+              pkgs.texlive.combined.scheme-full
+            ];
+            
+            shellHook = ''
+              echo "Jupyter Book development environment ready (with PDF support)!"
+              echo "Run 'jupyter-book build .' to build the book"
+              echo "Run 'jupyter-book build . --builder pdflatex' for PDF output"
+              echo "Run 'jupyter-lab' for interactive editing"
+            '';
+          };
         };
       }
     );
