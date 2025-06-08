@@ -23,7 +23,7 @@
           buildInputs = [
             pythonEnv
             pkgs.git
-            # For PDF output
+            pkgs.gnumake
             pkgs.texlive.combined.scheme-full
           ];
           
