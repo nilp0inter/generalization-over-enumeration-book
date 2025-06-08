@@ -2,6 +2,10 @@ title: "Generalization over Enumeration: Mathematical Ideas for Python Testing"
 author: Roberto Abdelkader Martínez Pérez
 copyright: "2025"
 
+latex:
+  latex_documents:
+    targetname: generalization-over-enumeration.tex
+
 execute:
   execute_notebooks: force
 
@@ -15,6 +19,9 @@ repository:
 
 sphinx:
   config:
+    project: generalization-over-enumeration
+    today: "2025"
+    today_fmt: "%Y"
     html_theme_options:
       repository_url: https://github.com/nilp0inter/generalization-over-enumeration-book
       use_repository_button: true
