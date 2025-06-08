@@ -68,13 +68,17 @@ test_add_commutative()
 ```
 
 ```{code-cell} python
-# This test will fail intentionally (commented out for successful build)
-# def test_broken_divide():
-#     """This test demonstrates a failing test."""
-#     assert broken_divide(10, 2) == 5  # Will fail because broken_divide returns 12
+# Failing Hypothesis test to verify build stops on test failures
+@given(st.integers(), st.integers())
+def test_failing_hypothesis(a, b):
+    """This Hypothesis test will fail to demonstrate build failure."""
+    assert a + b == a + b + 1
+```
 
-# Uncomment the lines below to test that failing tests stop the build:
-# test_broken_divide()
+```{code-cell} python
+:tags: [hide-input, hide-output]
+
+test_failing_hypothesis()
 ```
 
 ## Key Concepts

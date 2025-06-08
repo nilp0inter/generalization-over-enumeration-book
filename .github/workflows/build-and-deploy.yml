@@ -34,7 +34,13 @@ jobs:
         name: nix-community
         
     - name: Build HTML
-      run: nix develop --command jupyter-book build . --builder html
+      run: nix develop --command jupyter-book build . --builder html --warningiserror
+      
+    - name: Display test failure logs
+      if: failure()
+      run: |
+        echo "=== BUILD FAILED - Test execution errors below ==="
+        find _build -name "*.err.log" -exec echo "--- {} ---" \; -exec cat {} \; 2>/dev/null || echo "No error logs found"
       
     - name: Setup Pages
       if: github.ref == 'refs/heads/main'
